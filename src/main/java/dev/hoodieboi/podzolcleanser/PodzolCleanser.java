@@ -90,9 +90,13 @@ public final class PodzolCleanser extends JavaPlugin {
         }
         command.setExecutor(new Command());
         if (CommodoreProvider.isSupported()) {
-            Commodore commodore = CommodoreProvider.getCommodore(this);
             LiteralCommandNode<?> completion = literal("removepodzol")
-                    .then(literal("true")).then(literal("false")).then(literal("reload")).build();
+                    .then(literal("set").then(literal("true")).then(literal("false")))
+                    .then(literal("reload"))
+                    .then(literal("info"))
+                    .build();
+
+            Commodore commodore = CommodoreProvider.getCommodore(this);
             commodore.register(command, completion);
         }
     }

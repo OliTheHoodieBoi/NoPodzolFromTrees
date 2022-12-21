@@ -10,15 +10,24 @@ website: https://github.com/OliTheHoodieBoi/PodzolCleanser
 commands:
   removepodzol:
     aliases: cleansepodzol
-    usage: /removepodzol [true|false|reload]
+    usage: /removepodzol set [true|false]\n/removepodzol info\n/removepodzol reload
     permission: podzolcleanser.control
     permission-message: You do not have permission!
 
 permissions:
-  podzolcleanser.control:
-    description: Allows you to use the command /removepodzol
+  podzolcleanser.set:
+    description: Allows you to use /removepodzol set
+    default: op
+  podzolcleanser.reload:
+    description: Allows you to reload the PodzolCleanser config
+    default: op
+  podzolcleanser.info:
+    description: Allows you to get info about the plugin and the current state
+    default: true
   podzolcleanser.*:
     description: Wildcard permission
     default: op
     children:
-      podzolcleanser.control: true
+      podzolcleanser.set: true
+      podzolcleanser.reload: true
+      podzolcleanser.help: true
