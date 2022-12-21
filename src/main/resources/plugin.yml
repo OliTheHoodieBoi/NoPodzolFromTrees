@@ -1,0 +1,7 @@
+name: PodzolCleanser
+version: '${version}'
+main: dev.hoodieboi.podzolcleanser.PodzolCleanser
+api-version: 1.19
+prefix: PodzolCleanser
+author: OliTheHoodieBoi
+description: Remove podzol when growing large spruce trees
