@@ -2,6 +2,7 @@ package dev.hoodieboi.podzolcleanser;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -9,8 +10,11 @@ import org.jetbrains.annotations.NotNull;
 public class Command implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length != 1)
-            return false;
+        if (!sender.hasPermission("podzolcleanser.control")) {
+            sender.sendMessage(command.permissionMessage());
+            return true;
+        }
+
         switch (args[0].toLowerCase()) {
             case "true", "false" -> PodzolCleanser.INSTANCE.setRemovePodzol(Boolean.parseBoolean(args[0]));
             case "reload" -> PodzolCleanser.INSTANCE.reloadConfig();

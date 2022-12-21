@@ -5,8 +5,20 @@ api-version: 1.19
 prefix: PodzolCleanser
 author: OliTheHoodieBoi
 description: Remove podzol when growing large spruce trees
+website: https://github.com/OliTheHoodieBoi/PodzolCleanser
 
 commands:
   removepodzol:
     aliases: cleansepodzol
     usage: /removepodzol [true|false|reload]
+    permission: podzolcleanser.control
+    permission-message: You do not have permission!
+
+permissions:
+  podzolcleanser.control:
+    description: Allows you to use the command /removepodzol
+  podzolcleanser.*:
+    description: Wildcard permission
+    default: op
+    children:
+      podzolcleanser.control: true
