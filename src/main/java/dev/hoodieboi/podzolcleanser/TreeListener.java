@@ -14,7 +14,8 @@ public class TreeListener implements Listener {
 
     @EventHandler
     public void onTreeGrow(StructureGrowEvent event) {
-        if (event.getSpecies() != TreeType.MEGA_REDWOOD)
+        if (!PodzolCleanser.getRemovePodzol() ||
+                event.getSpecies() != TreeType.MEGA_REDWOOD)
             return;
         // Get all blocks
         List<Location> treeLocations = event.getBlocks().stream()
