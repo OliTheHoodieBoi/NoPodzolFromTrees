@@ -1,6 +1,6 @@
 # PodzolCleanser
 
-No more podzol when growing large spruce trees!  
+A tiny Bukkit plugin that removes the podzol that normally appears when growing large spruce trees.
 
 <img alt="Large spruce tree with grass around it" src="https://github.com/OliTheHoodieBoi/PodzolCleanser/raw/main/podzolcleanser.png" height="160" />
 
