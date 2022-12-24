@@ -4,7 +4,7 @@ main: dev.hoodieboi.podzolcleanser.PodzolCleanser
 api-version: 1.19
 prefix: PodzolCleanser
 author: OliTheHoodieBoi
-description: Remove podzol when growing large spruce trees
+description: Removes the podzol that normally appears when growing large spruce trees.
 website: https://github.com/OliTheHoodieBoi/PodzolCleanser
 
 commands:
