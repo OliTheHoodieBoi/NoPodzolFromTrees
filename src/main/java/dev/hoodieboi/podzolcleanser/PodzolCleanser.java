@@ -83,15 +83,18 @@ public final class PodzolCleanser extends JavaPlugin {
     }
 
     private void registerCommand() {
-        PluginCommand command = getServer().getPluginCommand("removepodzol");
+        String commandName = "podzolcleanser";
+        PluginCommand command = getServer().getPluginCommand(commandName);
         if (command == null) {
             Bukkit.getLogger().warning("Could not load command 'removepodzol'");
             return;
         }
-        command.setExecutor(new Command());
+        command.setExecutor(new MainCommand());
         if (CommodoreProvider.isSupported()) {
-            LiteralCommandNode<?> completion = literal("removepodzol")
-                    .then(literal("set").then(literal("true")).then(literal("false")))
+            // Register commodore command completion
+            LiteralCommandNode<?> completion = literal(commandName)
+                    .then(literal("set")
+                            .then(literal("enabled")).then(literal("disabled")))
                     .then(literal("reload"))
                     .then(literal("info"))
                     .build();
