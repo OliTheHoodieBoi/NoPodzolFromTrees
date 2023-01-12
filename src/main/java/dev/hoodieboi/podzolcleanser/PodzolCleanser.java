@@ -37,12 +37,12 @@ public final class PodzolCleanser extends JavaPlugin {
         FileConfiguration fileConfig = getFileConfig();
         // Get remove-podzol
         if (!fileConfig.contains(enabledPath)) {
-            getLogger().warning(String.format("Missing '%s' in %s!", enabledPath, configFileName));
+            getLogger().warning(String.format("Missing '%s' in config!", enabledPath));
             loadDefaultConfig();
             return;
         }
         if (!fileConfig.isBoolean(enabledPath)) {
-            getLogger().warning(String.format("Expected boolean value for '%s' in %s.", enabledPath, configFileName));
+            getLogger().warning(String.format("Expected boolean value for '%s' in config.", enabledPath));
             loadDefaultConfig();
             return;
         }
