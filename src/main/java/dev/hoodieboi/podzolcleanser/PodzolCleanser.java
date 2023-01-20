@@ -16,7 +16,7 @@ import java.util.logging.Level;
 public final class PodzolCleanser extends JavaPlugin {
 
     public static PodzolCleanser INSTANCE;
-    private boolean removePodzol = true;
+    private boolean shouldRemovePodzol = true;
     private final String enabledPath = "remove-podzol";
     private final String configFileName = "config.yml";
 
@@ -46,7 +46,7 @@ public final class PodzolCleanser extends JavaPlugin {
             loadDefaultConfig();
             return;
         }
-        removePodzol = fileConfig.getBoolean(enabledPath);
+        shouldRemovePodzol = fileConfig.getBoolean(enabledPath);
     }
 
     private FileConfiguration getFileConfig() {
@@ -62,14 +62,14 @@ public final class PodzolCleanser extends JavaPlugin {
             return;
         }
         FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultConfigFile));
-        removePodzol = defaultConfig.getBoolean(enabledPath);
+        shouldRemovePodzol = defaultConfig.getBoolean(enabledPath);
     }
 
-    public void setRemovePodzol(boolean removePodzol) {
-        this.removePodzol = removePodzol;
+    public void setShouldRemovePodzol(boolean shouldRemovePodzol) {
+        this.shouldRemovePodzol = shouldRemovePodzol;
         // Save to config
         FileConfiguration fileConfig = getFileConfig();
-        fileConfig.set(enabledPath, removePodzol);
+        fileConfig.set(enabledPath, shouldRemovePodzol);
         try {
             File configFile = new File(getDataFolder(), configFileName);
             fileConfig.save(configFile);
@@ -78,23 +78,23 @@ public final class PodzolCleanser extends JavaPlugin {
         }
     }
 
-    public boolean getRemovePodzol() {
-        return removePodzol;
+    public boolean getShouldRemovePodzol() {
+        return shouldRemovePodzol;
     }
 
     private void registerCommand() {
         String commandName = "podzolcleanser";
         PluginCommand command = getServer().getPluginCommand(commandName);
         if (command == null) {
-            Bukkit.getLogger().warning("Could not load command 'removepodzol'");
+            Bukkit.getLogger().warning("Could not load command '%s'".formatted(commandName));
             return;
         }
         command.setExecutor(new MainCommand());
         if (CommodoreProvider.isSupported()) {
             // Register commodore command completion
             LiteralCommandNode<?> completion = literal(commandName)
-                    .then(literal("set")
-                            .then(literal("enabled")).then(literal("disabled")))
+                    .then(literal("enable"))
+                    .then(literal("disable"))
                     .then(literal("reload"))
                     .then(literal("info"))
                     .build();
