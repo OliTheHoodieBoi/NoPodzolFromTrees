@@ -1,4 +1,4 @@
-package dev.hoodieboi.podzolcleanser;
+package dev.hoodieboi.npfl;
 
 import static com.mojang.brigadier.builder.LiteralArgumentBuilder.literal;
 import com.mojang.brigadier.tree.LiteralCommandNode;
@@ -13,10 +13,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.util.logging.Level;
 
-public final class PodzolCleanser extends JavaPlugin {
+public final class Plugin extends JavaPlugin {
 
-    public static PodzolCleanser INSTANCE;
-    private boolean removePodzol = true;
+    public static Plugin INSTANCE;
+    private boolean shouldRemovePodzol;
     private final String enabledPath = "remove-podzol";
     private final String configFileName = "config.yml";
 
@@ -37,16 +37,16 @@ public final class PodzolCleanser extends JavaPlugin {
         FileConfiguration fileConfig = getFileConfig();
         // Get remove-podzol
         if (!fileConfig.contains(enabledPath)) {
-            getLogger().warning(String.format("Missing '%s' in %s!", enabledPath, configFileName));
+            getLogger().warning(String.format("Missing '%s' in config!", enabledPath));
             loadDefaultConfig();
             return;
         }
         if (!fileConfig.isBoolean(enabledPath)) {
-            getLogger().warning(String.format("Expected boolean value for '%s' in %s.", enabledPath, configFileName));
+            getLogger().warning(String.format("Expected boolean value for '%s' in config.", enabledPath));
             loadDefaultConfig();
             return;
         }
-        removePodzol = fileConfig.getBoolean(enabledPath);
+        shouldRemovePodzol = fileConfig.getBoolean(enabledPath);
     }
 
     private FileConfiguration getFileConfig() {
@@ -62,14 +62,14 @@ public final class PodzolCleanser extends JavaPlugin {
             return;
         }
         FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultConfigFile));
-        removePodzol = defaultConfig.getBoolean(enabledPath);
+        shouldRemovePodzol = defaultConfig.getBoolean(enabledPath);
     }
 
-    public void setRemovePodzol(boolean removePodzol) {
-        this.removePodzol = removePodzol;
+    public void setShouldRemovePodzol(boolean shouldRemovePodzol) {
+        this.shouldRemovePodzol = shouldRemovePodzol;
         // Save to config
         FileConfiguration fileConfig = getFileConfig();
-        fileConfig.set(enabledPath, removePodzol);
+        fileConfig.set(enabledPath, shouldRemovePodzol);
         try {
             File configFile = new File(getDataFolder(), configFileName);
             fileConfig.save(configFile);
@@ -78,21 +78,28 @@ public final class PodzolCleanser extends JavaPlugin {
         }
     }
 
-    public boolean getRemovePodzol() {
-        return removePodzol;
+    public boolean getShouldRemovePodzol() {
+        return shouldRemovePodzol;
     }
 
     private void registerCommand() {
-        PluginCommand command = getServer().getPluginCommand("removepodzol");
+        String commandName = "npfl";
+        PluginCommand command = getServer().getPluginCommand(commandName);
         if (command == null) {
-            Bukkit.getLogger().warning("Could not load command 'removepodzol'");
+            Bukkit.getLogger().warning("Could not load command '%s'".formatted(commandName));
             return;
         }
-        command.setExecutor(new Command());
+        command.setExecutor(new MainCommand());
         if (CommodoreProvider.isSupported()) {
+            // Register commodore command completion
+            LiteralCommandNode<?> completion = literal(commandName)
+                    .then(literal("enable"))
+                    .then(literal("disable"))
+                    .then(literal("reload"))
+                    .then(literal("info"))
+                    .build();
+
             Commodore commodore = CommodoreProvider.getCommodore(this);
-            LiteralCommandNode<?> completion = literal("removepodzol")
-                    .then(literal("true")).then(literal("false")).then(literal("reload")).build();
             commodore.register(command, completion);
         }
     }
