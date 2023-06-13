@@ -1,4 +1,4 @@
-package dev.hoodieboi.podzolcleanser;
+package dev.hoodieboi.npfl;
 
 import static com.mojang.brigadier.builder.LiteralArgumentBuilder.literal;
 import com.mojang.brigadier.tree.LiteralCommandNode;
@@ -13,10 +13,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.util.logging.Level;
 
-public final class PodzolCleanser extends JavaPlugin {
+public final class Plugin extends JavaPlugin {
 
-    public static PodzolCleanser INSTANCE;
-    private boolean shouldRemovePodzol = true;
+    public static Plugin INSTANCE;
+    private boolean shouldRemovePodzol;
     private final String enabledPath = "remove-podzol";
     private final String configFileName = "config.yml";
 
@@ -83,7 +83,7 @@ public final class PodzolCleanser extends JavaPlugin {
     }
 
     private void registerCommand() {
-        String commandName = "podzolcleanser";
+        String commandName = "npfl";
         PluginCommand command = getServer().getPluginCommand(commandName);
         if (command == null) {
             Bukkit.getLogger().warning("Could not load command '%s'".formatted(commandName));

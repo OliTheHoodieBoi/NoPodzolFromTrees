@@ -1,30 +1,40 @@
-name: PodzolCleanser
+name: NoPodzolFromTrees
 version: '${version}'
-main: dev.hoodieboi.podzolcleanser.PodzolCleanser
+main: dev.hoodieboi.npfl.Plugin
 api-version: 1.19
-prefix: PodzolCleanser
+prefix: NoPodzolFromTrees
 author: OliTheHoodieBoi
 description: Removes the podzol that normally appears when growing large spruce trees.
-website: https://github.com/OliTheHoodieBoi/PodzolCleanser
+website: https://github.com/OliTheHoodieBoi/NoPodzolFromTrees
 
 commands:
-  podzolcleanser:
+  npfl:
     permission-message: Insufficient permission!
+    aliases: nopodzol
 
 permissions:
-  podzolcleanser.set:
-    description: Allows you to use /removepodzol set
+  npfl.enable:
+    description: Allows you to enable the plugin
     default: op
-  podzolcleanser.reload:
-    description: Allows you to reload the PodzolCleanser config
+  npfl.disable:
+    description: Allows you to disable the plugin
     default: op
-  podzolcleanser.info:
-    description: Allows you to get info about the plugin and the current state
-    default: true
-  podzolcleanser.*:
-    description: Wildcard permission
+  npfl.config:
+    description: Allows you to enable and disable the plugin
     default: op
     children:
-      podzolcleanser.set: true
-      podzolcleanser.reload: true
-      podzolcleanser.help: true
+      npfl.enable: true
+      npfl.disable: true
+  npfl.reload:
+    description: Allows you to reload the config
+    default: op
+  npfl.info:
+    description: Allows you to get info about the plugin and its current config
+    default: true
+  npfl.*:
+    description: All permissions related to No Podzol from Trees
+    default: op
+    children:
+      npfl.config: true
+      npfl.reload: true
+      npfl.help: true
