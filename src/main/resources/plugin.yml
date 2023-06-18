@@ -1,7 +1,7 @@
 name: NoPodzolFromTrees
 version: '${version}'
 main: dev.hoodieboi.npfl.Plugin
-api-version: 1.19
+api-version: '1.20'
 prefix: NoPodzolFromTrees
 author: OliTheHoodieBoi
 description: Removes the podzol that normally appears when growing large spruce trees.
