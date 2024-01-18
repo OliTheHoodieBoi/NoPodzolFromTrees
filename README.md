@@ -1,4 +1,4 @@
-# No Podzol from Trees
+# No Podzol from Trees [![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/no-podzol-from-trees?style=flat-square&logo=modrinth&color=17b85a)](https://modrinth.com/plugin/no-podzol-from-trees)
 
 A tiny Bukkit plugin that removes the podzol that normally appears when growing large spruce trees.  
 
